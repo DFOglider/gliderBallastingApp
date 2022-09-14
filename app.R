@@ -5,37 +5,16 @@ library(oce)
 library(ocedata)
 data("ctd")
 ghostCtd <- ctd
-debugInitializing <- FALSE # make FALSE when running app
 fakeYear <- 2020
-makeDirs <<- FALSE
 # load a function for gridding the climatology
-if(debugInitializing){
-  source('../../climatology/prince5/gridClimatologyDailyFn.R') 
-} else {
-  source('../../../climatology/prince5/gridClimatologyDailyFn.R') 
-  
-}
+source('./functions/gridClimatologyDailyFn.R') 
 
 # 1. load data
-# if app gets deployed for regular use
-#   adapt 01_readSourceAndArchive1999toPresent.R
-#   and source it here instead of loading local 'allctd.rda' file
-if(debugInitializing){
-  source('00_setupFile.R')
-  load(paste(destDirData, 'allctd.rda', sep = '/'))
-} else {
-  source('../00_setupFile.R')
-  load(paste('../', destDirData, 'allctd.rda', sep = '/'))
-}
-ctd <- allctd
-rm(allctd)
+load('ctd.rda')
 
 # 2. load climatology and format it 
-if(debugInitializing){
-  load('../../climatology/station2/data/sgscatter1991to2020Climatology.rda')
-} else {
-  load('../../../climatology/station2/data/sgscatter1991to2020Climatology.rda') 
-}
+load('./climatologyData/sgscatter1991to2020Climatology.rda')
+
 station2Climatology <- dailyClimatologyDf
 # have to 'fudge' the month to do a monthly average and other calculations below
 # 2020 is ok to use, not a leap year, so should be fine
