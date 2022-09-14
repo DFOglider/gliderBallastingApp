@@ -18,7 +18,10 @@ if(file.exists(outfile) & !reReadData){
   filenames <- basename(filenamesfull)
   cat(paste('number of ctds already read in', length(ctd)), sep = '\n')
 }
-
+# in annual analysis, analysisYear is defined in 00_setupFile.R
+#   but for here we'll just assume that the current year is the
+#   year we want to look for data.
+analysisYear <- as.numeric(format(Sys.Date(), '%Y')) 
 years <- 1999:analysisYear
 # define path to archive
 arcPath <- '\\\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/ARC/Archive/ctd'
@@ -33,12 +36,6 @@ srcFile <- paste('sourceMissionLists',
                    'ctdTransects/sourceList.dat'),
                  sep = '/')
 
-#arcMissions <- lapply(arcFile, function(k) read.table(k, header = TRUE, stringsAsFactors = FALSE))
-# some archive info files have some additonal info, only want year and mission ... for now ...
-#arcMissions <- lapply(arcMissions, function(k) {okNames <- names(k) %in% c('year', 'mission');
-#                                                k <- k[,okNames];
-#                                                k})
-#arcMissions <- do.call('rbind', arcMissions)
 srcMissions <- lapply(srcFile, function(k) read.table(k, header = TRUE, stringsAsFactors = FALSE))
 # all source info files have the same headers, so don't need to subset
 srcMissions <- do.call('rbind', srcMissions)
