@@ -29,10 +29,10 @@ arcPath <- '\\\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/ARC/Archive/ctd'
 # define and read in files that document where to look for data
 # from the various programs in the src
 
-srcFile <- paste('sourceMissionLists',
+srcFile <- paste('./srcMissionLists',
                  c('sourceList.dat', # sigma t - and other misc missions
                    'winterGroundfish/sourceYearMission.dat',
-                   'summerGroundfish/sourceYearMission.dat',
+                   'summerGroundfish/listOfSourceMissions.dat',
                    'ctdTransects/sourceList.dat'),
                  sep = '/')
 
