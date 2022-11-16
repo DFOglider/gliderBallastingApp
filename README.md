@@ -16,14 +16,14 @@ from previous years.
 
 1. Install R and RStudio, if using a DFO computer, it is best to install through the software center.
 
-2. Download the Shiny app code from this repository, either through
-   direct download, using Github Desktop, or by typing:
+2. Download the Shiny app code from this repository, through
+   direct download. Or cloning it using Github Desktop, or by typing:
    ```
    $ git clone https://github.com/DFOglider/gliderBallastingApp.git
    ```
    in a terminal.
 
-   The is recommended, as then updating the app can be done
+   This is recommended, as then updating the app can be done
    with a simple `git pull` command or by pulling changes in Github Desktop.
 
 3. Open the file `app.R` in Rstudio. You will need to install several packages (as listed at the
