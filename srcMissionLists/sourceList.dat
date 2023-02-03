@@ -6,4 +6,4 @@
 2021 "NED2021008" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2021/NED2021008/CTD/ORIGINAL" "^D.*\.ODF$"
 2021 "CAR2021221" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2021/CAR2021221/CTDDATA/Rosette" "^D.*\.ODF$"
 2021 "CAR2021221" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2021/CAR2021221/CTDDATA/Standalone" "^D.*\.ODF$"
-2022 "BCD2022666" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2022/BCD2022666/CTD" "^D.*\.ODF$"
+2022 "BCD2022666" "\\dcnsbiona01a/BIODataSvc/SRC/2020s/2022/BCD2022666/CTD/DATASHOP_PROCESSING/Step_5_Run_Automated_Checks" "^CTD_\w+_\w+_\w+_DN\.ODF$"
