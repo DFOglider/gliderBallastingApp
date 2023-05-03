@@ -49,7 +49,7 @@ climatologyStartTime <- as.POSIXct(unlist(lapply(ctdClimatology, function(k) k[[
 # set up various plotting parameters for climatology section plot
 xlim <- c(as.POSIXct(paste(fakeYear, '01', '01', sep = '-'), tz = 'UTC'),
           as.POSIXct(paste(fakeYear, '12', '31', sep = '-'), tz = 'UTC'))
-ylim <- c(0,150)
+ylim <- c(150, 0)
 
 # 3. get some useful information out of the ctd objects to use in the app
 # function for making it easier to subset objects to a specific month-day
