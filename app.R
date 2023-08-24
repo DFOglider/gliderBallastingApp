@@ -65,8 +65,8 @@ initialDeploymentStart <- Sys.Date() - 2
 initialDeploymentEnd <- Sys.Date() + 2
 initialRecoveryStart <- Sys.Date() + 19
 initialRecoveryEnd <- Sys.Date() + 23
-initialCtdYearRange <- c(as.numeric(format(Sys.Date(), '%Y')) - 2,
-                         as.numeric(format(Sys.Date(), '%Y')))
+initialCtdYearRange <- c(1999,
+                         max(years, na.rm = TRUE))
 deploymentFakeTime <- getFakeTime(x = c(initialDeploymentStart,
                                         initialDeploymentEnd),
                                   fakeYear = fakeYear)
@@ -143,13 +143,13 @@ ui <- fluidPage(
            ),
            fluidRow(
              column(3,
-                    textOutput(outputId = 'TSDepText')
+                    htmlOutput(outputId = 'TSDepText')
                     ),
              column(3,
                     htmlOutput(outputId = 'sigmaThetaDepText') # html to handle superscript
                     ),
              column(3,
-                    textOutput(outputId = 'TSRecText')
+                    htmlOutput(outputId = 'TSRecText')
                     ),
              column(3,
                     htmlOutput(outputId = 'sigmaThetaRecText') # html to handle superscript
@@ -294,15 +294,56 @@ server <- function(input, output) {
   })
   
   # plot and text output
+  # output$TSDepText <- renderText({
+  #   paste('Climatology:<br/>', # Climatology
+  #         '&nbsp;', # for easy reading
+  #         '<SPAN STYLE="text-decoration:overline">T</SPAN>(p &le; 5m) = ', # mean temperature
+  #         sprintf('%.2f', mean(unlist(lapply(state$deploymentCtdClimatology, function(k) {sub <- subset(k, pressure <= 5) ; sub[['temperature']]})), na.rm = TRUE)),
+  #         '\u00B0C', # degree C
+  #         '<br/>',
+  #         '&nbsp;', # for easy reading
+  #         '<SPAN STYLE="text-decoration:overline">S</SPAN>(p &le; 5m) = ', # mean salinity
+  #         sprintf('%.2f', mean(unlist(lapply(state$deploymentCtdClimatology, function(k) {sub <- subset(k, pressure <= 5) ; sub[['salinity']]})), na.rm = TRUE)),
+  #         '<br/>',
+  #         ifelse(!is.null(state$recentProfile),
+  #                paste('Recent profile <br/>:',
+  #                      '<SPAN STYLE="text-decoration:overline">T</SPAN>(p &le; 5m) = ', # mean temperature
+  #                      sprintf('%.2f', mean(unlist(lapply(list(state$recentProfile), function(k) {sub <- subset(k, pressure <= 5) ; sub[['temperature']]})), na.rm = TRUE)),
+  #                      '\u00B0C', # degree C
+  #                      '<br/>',
+  #                      '<SPAN STYLE="text-decoration:overline">S</SPAN>(p &le; 5m) = ', # mean salinity
+  #                      sprintf('%.2f', mean(unlist(lapply(list(state$recentProfile), function(k) {sub <- subset(k, pressure <= 5) ; sub[['salinity']]})), na.rm = TRUE)),
+  #                      '<br/>'),
+  #                ''))
+  # })
   output$TSDepText <- renderText({
-    paste('The climatological near surface (p <= 5m) average temperature is',
+    paste('The climatological near surface (p &le; 5m) average temperature is',
           sprintf('%.2f', mean(unlist(lapply(state$deploymentCtdClimatology, function(k) {sub <- subset(k, pressure <= 5) ; sub[['temperature']]})), na.rm = TRUE)),
           '\u00B0C', # degree C
           'and salinity is',
           sprintf('%.2f', mean(unlist(lapply(state$deploymentCtdClimatology, function(k) {sub <- subset(k, pressure <= 5) ; sub[['salinity']]})), na.rm = TRUE)),
           '.',
+          ifelse(length(state$deploymentCtd) != 0,
+                 paste('The ', paste(state$yearRange, collapse = ' to '), 'near surface (p &le; 5m) average temperature is',
+                       sprintf('%.2f', mean(unlist(lapply(state$deploymentCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['temperature']]})), na.rm = TRUE)),
+                       '\u00B0C', # degree C
+                       'and salinity is',
+                       sprintf('%.2f', mean(unlist(lapply(state$deploymentCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['salinity']]})), na.rm = TRUE)),
+                       '.'),
+                 ''),
           ifelse(!is.null(state$recentProfile),
-                 paste('The most recent profile near surface (p <= 5m) average temperature is',
+                 paste('The most recent profile, taken on', format(state$recentProfile[['startTime']], '%Y-%m-%d'),
+                       '(',
+                       sprintf('%.0f', abs(as.numeric(difftime(getFakeTime(state$recentProfile[['startTime']], fakeYear = fakeYear),
+                                           getFakeTime(state$deploymentDateRange[1], fakeYear = fakeYear),
+                                           tz = 'UTC', units = 'days')))),
+                       ifelse(as.numeric(difftime(getFakeTime(state$recentProfile[['startTime']], fakeYear = fakeYear),
+                                                  getFakeTime(state$deploymentDateRange[1], fakeYear = fakeYear),
+                                                  tz = 'UTC', units = 'days')) >= 0,
+                              'days after',
+                              'days before'),
+                       'the earliest defined deployment date)',
+                       'near surface (p &le; 5m) average temperature is',
                        sprintf('%.2f', mean(unlist(lapply(list(state$recentProfile), function(k) {sub <- subset(k, pressure <= 5) ; sub[['temperature']]})), na.rm = TRUE)),
                        '\u00B0C', # degree C
                        'and salinity is',
@@ -353,12 +394,18 @@ server <- function(input, output) {
     
   })
   output$sigmaThetaDepText <- renderText({
-    paste('The climatological near surface (p <= 5m) average density is',
+    paste('The climatological near surface (p &le; 5m) average density is',
           sprintf('%.2f', mean(unlist(lapply(state$deploymentCtdClimatology, function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaThetaCalculated']]})), na.rm = TRUE)),
           "kg/m <sup>3</sup>",
           '.',
+          ifelse(length(state$deploymentCtd) != 0,
+                 paste('The ', paste(state$yearRange, collapse = ' to '), 'near surface (p &le; 5m) average density is',
+                       sprintf('%.2f', mean(unlist(lapply(state$deploymentCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaThetaCalculated']]})), na.rm = TRUE)),
+                       "kg/m <sup>3</sup>",
+                       '.'),
+                 ''),
           ifelse(!is.null(state$recentProfile),
-                 paste('The most recent profile near surface (p <= 5m) average density is',
+                 paste('The most recent profile near surface (p &le; 5m) average density is',
                        sprintf('%.2f', mean(unlist(lapply(list(state$recentProfile), function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaTheta']]})), na.rm = TRUE)),
                        "kg/m <sup>3</sup>",
                        '.'),
@@ -381,12 +428,21 @@ server <- function(input, output) {
     box()
   })
   output$TSRecText <- renderText({
-    paste('The climatological near surface (p <= 5m) average temperature is',
+    paste('The climatological near surface (p &le; 5m) average temperature is',
           sprintf('%.2f', mean(unlist(lapply(state$recoveryCtdClimatology, function(k) {sub <- subset(k, pressure <= 5) ; sub[['temperature']]})), na.rm = TRUE)),
           '\u00B0C', # degree C
           'and salinity is',
           sprintf('%.2f', mean(unlist(lapply(state$recoveryCtdClimatology, function(k) {sub <- subset(k, pressure <= 5) ; sub[['salinity']]})), na.rm = TRUE)),
-          '.')
+          '.',
+          ifelse(length(state$recoveryCtd) != 0,
+                 paste('The ', paste(state$yearRange, collapse = ' to '), 'near surface (p &le; 5m) average temperature is',
+                       sprintf('%.2f', mean(unlist(lapply(state$recoveryCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['temperature']]})), na.rm = TRUE)),
+                       '\u00B0C', # degree C
+                       'and salinity is',
+                       sprintf('%.2f', mean(unlist(lapply(state$recoveryCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['salinity']]})), na.rm = TRUE)),
+                       '.'),
+                 '')
+          )
   })
   output$TSRec <- renderPlot({
     # # # for developing purposes
@@ -425,10 +481,16 @@ server <- function(input, output) {
     
   })
   output$sigmaThetaRecText <- renderText({
-    paste('The climatological near surface (p <= 5m) average density is',
+    paste('The climatological near surface (p &le; 5m) average density is',
           sprintf('%.2f', mean(unlist(lapply(state$recoveryCtdClimatology, function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaThetaCalculated']]})), na.rm = TRUE)),
           "kg/m <sup>3</sup>",
-          '.')
+          '.',
+          ifelse(length(state$recoveryCtd) != 0,
+                 paste('The ', paste(state$yearRange, collapse = ' to '), 'near surface (p &le; 5m) average density is',
+                       sprintf('%.2f', mean(unlist(lapply(state$recoveryCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaThetaCalculated']]})), na.rm = TRUE)),
+                       "kg/m <sup>3</sup>",
+                       '.'),
+                 ''))
   })
   output$sigmaThetaRec <- renderPlot({
     plotProfile(ghostCtd,
