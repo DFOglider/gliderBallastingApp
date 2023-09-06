@@ -1,5 +1,3 @@
 "year" "mission" "path" "pattern"
 2019 "NED2019030" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2010s/2019/NED2019030/CTDdata" "^D.*\.ODF$"
-2020 "NED2020025" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2020/NED2020025/CTDDATA_final" "^D.*\.ODF$"
-2022 "TEL2022010" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2022/TEL2022010/CTD/ROSETTE/CTDdata" "^D.*\.ODF$"
-2022 "TEL2022010" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2022/TEL2022010/CTD/STANDALONE_CTD" "^D.*\.ODF$"
+2023 "CAR2023011" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2023/CAR2023011/CTD/CTDDATA" "^D.*\.ODF$"
