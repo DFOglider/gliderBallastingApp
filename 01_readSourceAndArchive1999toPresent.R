@@ -3,13 +3,13 @@ rm(list=ls())
 #   or assume that all data previously read is all available and read
 #   in only new data.
 # note that all src data will always be re-read
-reReadData <- TRUE  
+reReadData <- FALSE  
 library(oce)
 library(csasAtlPhys)
 library(sp)
 data("station2Polygon")
 # load in setup file
-# check if data has already been read in for speady-ness when reading in new data
+# check if data has already been read in for speedy-ness when reading in new data
 outfile <- 'ctd.rda'
 filenames <- NULL
 if(file.exists(outfile) & !reReadData){
@@ -33,7 +33,8 @@ srcFile <- paste('./srcMissionLists',
                  c('sourceList.dat', # sigma t - and other misc missions
                    'winterGroundfish/sourceYearMission.dat',
                    'summerGroundfish/listOfSourceMissions.dat',
-                   'ctdTransects/sourceList.dat'),
+                   'ctdTransects/sourceList.dat',
+                   'ctdTransects/sourceListAZOMP.dat'),
                  sep = '/')
 
 srcMissions <- lapply(srcFile, function(k) read.table(k, header = TRUE, stringsAsFactors = FALSE))
