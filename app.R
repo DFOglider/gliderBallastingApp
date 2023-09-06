@@ -330,7 +330,7 @@ server <- function(input, output) {
                        'and salinity is',
                        sprintf('%.2f', mean(unlist(lapply(state$deploymentCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['salinity']]})), na.rm = TRUE)),
                        '.'),
-                 ''),
+                 paste('No data was collected between', paste(state$yearRange, collapse = ' and '), 'for the selected deployment dates.')),
           ifelse(!is.null(state$recentProfile),
                  paste('The most recent profile, taken on', format(state$recentProfile[['startTime']], '%Y-%m-%d'),
                        '(',
@@ -400,10 +400,10 @@ server <- function(input, output) {
           '.',
           ifelse(length(state$deploymentCtd) != 0,
                  paste('The ', paste(state$yearRange, collapse = ' to '), 'near surface (p &le; 5m) average density is',
-                       sprintf('%.2f', mean(unlist(lapply(state$deploymentCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaThetaCalculated']]})), na.rm = TRUE)),
+                       sprintf('%.2f', mean(unlist(lapply(state$deploymentCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaTheta']]})), na.rm = TRUE)),
                        "kg/m <sup>3</sup>",
                        '.'),
-                 ''),
+                 paste('No data was collected between', paste(state$yearRange, collapse = ' and '), 'for the selected deployment dates.')),
           ifelse(!is.null(state$recentProfile),
                  paste('The most recent profile near surface (p &le; 5m) average density is',
                        sprintf('%.2f', mean(unlist(lapply(list(state$recentProfile), function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaTheta']]})), na.rm = TRUE)),
@@ -441,7 +441,7 @@ server <- function(input, output) {
                        'and salinity is',
                        sprintf('%.2f', mean(unlist(lapply(state$recoveryCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['salinity']]})), na.rm = TRUE)),
                        '.'),
-                 '')
+                 paste('No data was collected between', paste(state$yearRange, collapse = ' and '), 'for the selected recovery dates.'))
           )
   })
   output$TSRec <- renderPlot({
@@ -487,10 +487,10 @@ server <- function(input, output) {
           '.',
           ifelse(length(state$recoveryCtd) != 0,
                  paste('The ', paste(state$yearRange, collapse = ' to '), 'near surface (p &le; 5m) average density is',
-                       sprintf('%.2f', mean(unlist(lapply(state$recoveryCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaThetaCalculated']]})), na.rm = TRUE)),
+                       sprintf('%.2f', mean(unlist(lapply(state$recoveryCtd, function(k) {sub <- subset(k, pressure <= 5) ; sub[['sigmaTheta']]})), na.rm = TRUE)),
                        "kg/m <sup>3</sup>",
                        '.'),
-                 ''))
+                 paste('No data was collected between', paste(state$yearRange, collapse = ' and '), 'for the selected recovery dates.')))
   })
   output$sigmaThetaRec <- renderPlot({
     plotProfile(ghostCtd,
