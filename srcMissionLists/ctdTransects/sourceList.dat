@@ -8,3 +8,4 @@
 2010 "HUD2010006" "\\dcnsbiona01a/BioDataSvc/SRC/2010s/2010/HUD2010006/CTD/DATASHOP_PROCESSING/Step_4_Run_Automated_Checks/" "^CTD.*DN\.ODF$"
 2010 "HUD2010049" "\\dcnsbiona01a/BioDataSvc/SRC/2010s/2010/HUD2010049/CTD/DATASHOP_PROCESSING/Step_4_Run_Automated_Checks/" "^CTD.*DN\.ODF$"
 2023 "DY16902" "\\ent.dfo-mpo.ca/ATLShares/Shared/HuY/ODF_DY16902_new" "^CTD.*DN\.ODF$"
+2024 "TEL2024880" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2024/TEL2024880/CTD/ORIGINAL/CTD_Processing/ODF" "^D.*\.ODF$"
