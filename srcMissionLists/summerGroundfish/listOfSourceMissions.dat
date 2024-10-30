@@ -4,3 +4,4 @@
 2022 "TEL2022010" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2022/TEL2022010/CTD/ROSETTE/CTDdata" "^D.*\.ODF$"
 2022 "TEL2022010" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2022/TEL2022010/CTD/STANDALONE_CTD" "^D.*\.ODF$"
 2023 "CAR2023011" "\\dcnsbiona01a/BioDataSvc/SRC/2020s/2023/CAR2023011/CTD/DATASHOP_PROCESSING/Step_5_Run_Automated_Checks/" "^CTD.*DN\.ODF$"
+2024 "CAR2024010" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2024/CAR2024010/CTD/CTDDATA" "^D.*\.ODF$"
