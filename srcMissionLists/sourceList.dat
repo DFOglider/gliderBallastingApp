@@ -11,3 +11,5 @@
 2023 "CAR2023300" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2023/CAR2023300/CTD/CTDDATA_Standalone" "^D.*\.ODF$"
 2023 "CAR2023300" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2023/CAR2023300/CTD/CTDDATA_Rosette" "^D.*\.ODF$"
 2024 "BCD2024666" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2024/BCD2024666/CTD" "^D.*\.ODF$"
+2024 "CAR2024400" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2024/CAR2024400/CTD/Rosette/ODF" "^D.*\.ODF$"
+2024 "CAR2024400" "\\ent.dfo-mpo.ca/ATLShares/Science/BIODataSvc/SRC/2020s/2024/CAR2024400/CTD/Standalone_CTD" "^D.*\.ODF$"
